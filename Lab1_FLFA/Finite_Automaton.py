@@ -7,7 +7,7 @@ class Finite_Automaton:
         self.q0 = q0
         self.F = F
     # Method which check if word is valid
-    def string_belongs_to_language(self, input_string):
+    def string_belongs_to_language(self,input_string):
         # Set the current state to the initial state
         current_state = self.q0
 
