@@ -27,7 +27,7 @@
     
     *Grammar class
     
-```
+    ```
 class Grammar:
     # Constructor of Grammar class
     def __init__(self, V_N, V_T, P):
