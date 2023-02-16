@@ -29,12 +29,12 @@
     import Finite_Automaton
 
 
-class Grammar:
-    # Constructor of Grammar class
-    def __init__(self, V_N, V_T, P):
-        self.V_N = V_N
-        self.V_T = V_T
-        self.P = P
+    class Grammar:
+        # Constructor of Grammar class
+        def __init__(self, V_N, V_T, P):
+            self.V_N = V_N
+            self.V_T = V_T
+            self.P = P
 
     # Method which generate words corresponding to rules
     def generate_string(self):
