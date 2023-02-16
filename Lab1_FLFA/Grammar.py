@@ -3,7 +3,7 @@ import Finite_Automaton
 
 class Grammar:
     # Constructor of Grammar class
-    def __init__(self,V_N, V_T, P):
+    def __init__(self, V_N, V_T, P):
         self.V_N = V_N
         self.V_T = V_T
         self.P = P
@@ -14,9 +14,9 @@ class Grammar:
         # Start of the word
         word = "S"
         # Set of final states
-        final_states = ["b", "a"]
+        final_state = " "
         # While loop which create a random word
-        while word[-1] not in final_states:
+        while word[-1] not in final_state:
             options = []
             for vn, prod in self.P.items():
                 if vn == word[-1]:
@@ -36,15 +36,16 @@ class Grammar:
         # Initiate the initial state
         q0 = "S"
         # Initiate the set of final states
-        F = ["b", "a"]
+        F = "X"
         # Initiate the transition function
         delta = {}
         for vn, prod in self.P.items():
             for symbol in prod:
-                if symbol[1:] != "":
-                    delta[(vn, symbol[0])] = symbol[1:]
+                if (vn, symbol[0]) in delta :
+                    delta[(vn, symbol[0])].append(symbol[1:])
                 else:
-                    delta[(vn, symbol[0])] = symbol[0]
+                    delta[(vn, symbol[0])] = [symbol[1:]]
+
 
         # Call the constructor of Finite Automaton class
         return Finite_Automaton.Finite_Automaton(Q, Sigma, delta, q0, F)
