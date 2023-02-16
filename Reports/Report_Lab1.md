@@ -25,7 +25,7 @@
     d. For the Finite Automaton, please add a method that checks if an input string can be obtained via the state transition from it;
 ## Implementation
 * Grammar class
-    ```
+    ```python
     import Finite_Automaton
 
 
@@ -80,7 +80,7 @@
     ```
 
 * Finite Automaton Class
-    ```
+    ```python
     class Finite_Automaton:
     # Constructor of Finite_Automaton class
     def __init__(self, Q, Sigma, delta, q0, F):
