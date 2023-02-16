@@ -26,57 +26,62 @@
 ## Implementation
 * Grammar class
     ```
-    class Grammar:
-        # Constructor of Grammar class
-        def __init__(self, V_N, V_T, P):
-            self.V_N = V_N
-            self.V_T = V_T
-            self.P = P
+    import Finite_Automaton
 
-        # Method which generate words corresponding to rules
-        def generate_string(self):
-            import random
-            # Start of the word
-            word = "S"
-            # Set of final states
-            final_states = ["b", "a"]
-            # While loop which create a random word
-            while word[-1] not in final_states:
-                options = []
-                for vn, prod in self.P.items():
-                    if vn == word[-1]:
-                        options += prod
-                if not options:
-                    return None
-                production = random.choice(options)
-                word = word[:-1] + production
-            return word
 
-        # Method which transfer from grammar class to finite automaton class
-        def to_finite_automaton(self):
-            # Initiate finite set of states
-            Q = set(self.V_N)
-            # Initiate the alphabet
-            Sigma = set(self.V_T)
-            # Initiate the initial state
-            q0 = "S"
-            # Initiate the set of final states
-            F = ["b", "a"]
-            # Initiate the transition function
-            delta = {}
+class Grammar:
+    # Constructor of Grammar class
+    def __init__(self, V_N, V_T, P):
+        self.V_N = V_N
+        self.V_T = V_T
+        self.P = P
+
+    # Method which generate words corresponding to rules
+    def generate_string(self):
+        import random
+        # Start of the word
+        word = "S"
+        # Set of final states
+        final_state = " "
+        # While loop which create a random word
+        while word[-1] not in final_state:
+            options = []
             for vn, prod in self.P.items():
-                for symbol in prod:
-                    if symbol[1:] != "":
-                        delta[(vn, symbol[0])] = symbol[1:]
-                    else:
-                        delta[(vn, symbol[0])] = symbol[0]
+                if vn == word[-1]:
+                    options += prod
+            if not options:
+                return None
+            production = random.choice(options)
+            word = word[:-1] + production
+        return word
 
-            # Call the constructor of Finite Automaton class
-            return Finite_Automaton.Finite_Automaton(Q, Sigma, delta, q0, F)
+    # Method which transfer from grammar class to finite automaton class
+    def to_finite_automaton(self):
+        # Initiate finite set of states
+        Q = set(self.V_N)
+        # Initiate the alphabet
+        Sigma = set(self.V_T)
+        # Initiate the initial state
+        q0 = "S"
+        # Initiate the set of final states
+        F = "X"
+        # Initiate the transition function
+        delta = {}
+        for vn, prod in self.P.items():
+            for symbol in prod:
+                if (vn, symbol[0]) in delta :
+                    delta[(vn, symbol[0])].append(symbol[1:])
+                else:
+                    delta[(vn, symbol[0])] = [symbol[1:]]
+
+
+        # Call the constructor of Finite Automaton class
+        return Finite_Automaton.Finite_Automaton(Q, Sigma, delta, q0, F)
+
     ```
 * Finite Automaton Class
     ```
-    class Finite_Automaton:
+class Finite_Automaton:
     # Constructor of Finite_Automaton class
     def __init__(self, Q, Sigma, delta, q0, F):
         self.Q = Q
@@ -88,19 +93,24 @@
     def string_belongs_to_language(self, input_string):
         # Set the current state to the initial state
         current_state = self.q0
-
+        nr = 0
         # For each symbol in the input string, find the next state using the delta function
         for symbol in input_string:
-            if (current_state, symbol) in self.delta:
-                current_state = self.delta[(current_state, symbol)]
-            else:
-                continue
-
-        # If the current state is in the set of final states, return True
-        if current_state in self.F:
-            return True
-        else:
-            return False
+            if ((current_state[0], symbol) in self.delta) and (nr != len(input_string)-1):
+                current_state = self.delta[(current_state[0], symbol)]
+            elif nr == len(input_string) - 1:
+                if len(current_state) > 1:
+                    # If the current state is in the set of final states, return True
+                    if current_state[len(current_state)-1] in self.F:
+                        return True
+                    else:
+                        return False
+                else:
+                    if current_state[0] in self.F:
+                        return True
+                    else:
+                        return False
+            nr += 1
     ```
     
     
