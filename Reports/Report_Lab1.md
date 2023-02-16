@@ -77,11 +77,11 @@ class Grammar:
 
         # Call the constructor of Finite Automaton class
         return Finite_Automaton.Finite_Automaton(Q, Sigma, delta, q0, F)
-
     ```
+
 * Finite Automaton Class
     ```
-class Finite_Automaton:
+    class Finite_Automaton:
     # Constructor of Finite_Automaton class
     def __init__(self, Q, Sigma, delta, q0, F):
         self.Q = Q
