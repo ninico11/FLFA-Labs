@@ -19,7 +19,7 @@ s2 = grammar.generate_string()
 s3 = grammar.generate_string()
 s4 = grammar.generate_string()
 s5 = grammar.generate_string()
-print(s1)
+print(s1 + " " + s2 + " " + s3 + " " + s4 + " " + s5)
 
 print("s1 is " + str(finite_automaton.string_belongs_to_language(s1)))
 print("s2 is " + str(finite_automaton.string_belongs_to_language(s2)))
