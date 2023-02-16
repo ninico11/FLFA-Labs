@@ -114,7 +114,10 @@
     ```
     
     ## Conclusion
-        In this laboratory work I learned and implemented regular grammar and a finite automaton. I strengthened my knowledge in this field and received new experience in coding. In some moments, errors appeared that were a big obstacle and because of which I had to review all the code and study new things.
+        In this laboratory work I learned and implemented regular grammar and a finite automaton. 
+        I strengthened my knowledge in this field and received new experience in coding. In some moments, 
+        errors appeared that were a big obstacle and because of which
+        I had to review all the code and study new things.
     
                  
 
