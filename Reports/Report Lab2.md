@@ -108,10 +108,13 @@
 
         return start_symbol, productions
     ```
+    In the given class, the control functions of the finite automaton, its transformation into a deterministic finite automaton or into a grammar are performed.
+    In the function "is_dfa" it is checked whether the finite automaton is deterministic or non-deterministic. Each set is checked if it corresponds to the rules that     are in a deterministic finite automaton.
+    In the "to_dfa" function, the control function is called to see if the automaton is non-deterministic. If not, the necessary steps are taken to transform an NDFA       into a DFA.
+    In the "to_grammar" function, the process of converting an FA into a Grammar is carried out by simply transferring from the sets of an FA to the sets required for     a Grammar.
 ## Conclusion
-In this laboratory work I learned and implemented regular grammar and a finite automaton. 
-I strengthened my knowledge in this field and received new experience in coding. In some moments, errors appeared that were a big obstacle and because of which
-I had to review all the code and study new things.
+In this laboratory work I learned and implemented converter from NFA to DFA or from FA to Regular Grammar. 
+I learned how to determine if an FA is deterministic or non-deterministic. I found out the steps to convert an NDFA to a DFA
 ## References
 * Regular Expressions, Regular Grammar and Regular Languages: https://www.geeksforgeeks.org/regular-expressions-regular-grammar-and-regular-languages/?ref=lbp
 * Deterministic finite automaton: https://en.wikipedia.org/wiki/Deterministic_finite_automaton
