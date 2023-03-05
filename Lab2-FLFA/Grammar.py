@@ -50,3 +50,60 @@ class Grammar:
 
         # Call the constructor of Finite Automaton class
         return Finite_Automaton.Finite_Automaton(Q, Sigma, delta, q0, F)
+
+    def classify_grammar(self, P):
+
+        if self.is_unrestricted(P):
+            return "Type 0"
+
+        if self.is_context_sensitive(P):
+            return "Type 1"
+
+        if self.is_context_free(P):
+            return "Type 2"
+
+        if self.is_regular(P):
+            return "Type 3"
+
+        return "Not in Chomsky hierarchy"
+
+    def is_unrestricted(self, P):
+
+        return True
+
+    def is_context_sensitive(self, P):
+
+        for lhs, rhs_list in P.items():
+            for rhs in rhs_list:
+                if len(rhs) < len(lhs):
+                    return False
+                for i, symbol in enumerate(rhs):
+                    if symbol in P and i != len(rhs) - 1:
+                        if len(rhs) <= len(lhs):
+                            return False
+        return True
+
+    def is_context_free(self, P):
+
+        for lhs, rhs_list in P.items():
+            if len(lhs) != 1 or not lhs.isupper():
+                return False
+            for rhs in rhs_list:
+                for symbol in rhs:
+                    if symbol not in P and not symbol.islower():
+                        return False
+        return True
+
+    def is_regular(self, P):
+
+        for lhs, rhs_list in P.items():
+            if not lhs.isupper():
+                return False
+            for rhs in rhs_list:
+                if len(rhs) == 1 and rhs.islower():
+                    continue
+                elif len(rhs) == 2 and rhs[0].islower() and rhs[1].isupper():
+                    continue
+                else:
+                    return False
+        return True
