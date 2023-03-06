@@ -53,17 +53,14 @@ class Grammar:
 
     def classify_grammar(self, P):
 
-        if self.is_unrestricted(P):
-            return "Type 0"
-
-        if self.is_context_sensitive(P):
-            return "Type 1"
-
-        if self.is_context_free(P):
-            return "Type 2"
-
         if self.is_regular(P):
             return "Type 3"
+        if self.is_context_free(P):
+            return "Type 2"
+        if self.is_context_sensitive(P):
+            return "Type 1"
+        if self.is_unrestricted(P):
+            return "Type 0"
 
         return "Not in Chomsky hierarchy"
 
@@ -107,3 +104,5 @@ class Grammar:
                 else:
                     return False
         return True
+
+
