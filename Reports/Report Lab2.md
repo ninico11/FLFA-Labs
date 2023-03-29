@@ -25,17 +25,9 @@
         
     - Your program needs to gather and send the data about the automaton and the lib/tool/API return the visual representation.
 ## Implementation
-* Converter class
-    ```python
-   class Converter:
-    def __init__(self, Q, Sigma, delta, q0, F):
-        self.Q = Q
-        self.Sigma = Sigma
-        self.delta = delta
-        self.q0 = q0
-        self.F = F
-
-    def is_dfa(self):
+In the method "is_dfa" it is checked whether the finite automaton is deterministic or non-deterministic. Each set is checked if it corresponds to the rules     that are in a deterministic finite automaton.
+```python
+ def is_dfa(self):
         if not self.Q or not self.Sigma:
             return False
         for state in self.Q:
@@ -47,7 +39,9 @@
         if not set(self.F).issubset(set(self.Q)):
             return False
         return True
-
+```
+In the "to_dfa" method, the control method is called to see if the automaton is non-deterministic. If not, the necessary steps are taken to transform an NDFA into a DFA. In order to form a DFA from the NDFA, a loop is formed that checks step by step whether the deltas correspond to a DFA. If the delta does not match, then a new set is formed that includes all the necessary states and is grouped together with the terminal symbol in the dictionary
+```python
     def to_dfa(self):
         if self.is_dfa():
             return self
@@ -74,6 +68,9 @@
         dfa = Converter(dfa_states, self.Sigma, dfa_transitions, self.q0, dfa_accept_states)
         return dfa
 
+```
+In the "to_grammar" method, the process of converting an FA into a Grammar is carried out by simply transferring from the sets of an FA to the sets required for     a Grammar. In this method, the simple transfer of the sets Q, Sigma, delta, q0, F is done in the sets that correspond to a grammar: Vn, Vt, P, S.
+```python
     def to_grammar(self):
         productions = dict()
         for state in self.Q:
@@ -105,13 +102,67 @@
             productions[start_symbol] = set()
             for accept_state in self.F:
                 productions[start_symbol].add('eps' + accept_state)
-
+        
         return start_symbol, productions
-    ```
-    * In the given class, the control functions of the finite automaton, its transformation into a deterministic finite automaton or into a grammar are performed.
-    * In the function "is_dfa" it is checked whether the finite automaton is deterministic or non-deterministic. Each set is checked if it corresponds to the rules that     are in a deterministic finite automaton.
-    * In the "to_dfa" function, the control function is called to see if the automaton is non-deterministic. If not, the necessary steps are taken to transform an NDFA       into a DFA.
-    * In the "to_grammar" function, the process of converting an FA into a Grammar is carried out by simply transferring from the sets of an FA to the sets required for     a Grammar.
+```
+In this method, the grammar is classified by passing through a series of conditions that call for control methods starting from the strictest and ending with the most unrestricted
+```python
+    def classify_grammar(self, P):
+
+        if self.is_regular(P):
+            return "Type 3"
+        if self.is_context_free(P):
+            return "Type 2"
+        if self.is_context_sensitive(P):
+            return "Type 1"
+        if self.is_unrestricted(P):
+            return "Type 0"
+
+        return "Not in Chomsky hierarchy"
+```
+These methods control the type of grammar by performing the necessary steps and if it does not match they return "false", but the "is_unrestricted" method only returns "true" because it corresponds to type 0 which receives any type of grammar. The "is_regular" method is for type 3, "is_context_sensitive" for type 2 and "is_context_free" for type 1.
+```python
+    def is_unrestricted(self, P):
+
+        return True
+
+    def is_context_sensitive(self, P):
+
+        for lhs, rhs_list in P.items():
+            for rhs in rhs_list:
+                if len(rhs) < len(lhs):
+                    return False
+                for i, symbol in enumerate(rhs):
+                    if symbol in P and i != len(rhs) - 1:
+                        if len(rhs) <= len(lhs):
+                            return False
+        return True
+
+    def is_context_free(self, P):
+
+        for lhs, rhs_list in P.items():
+            if len(lhs) != 1 or not lhs.isupper():
+                return False
+            for rhs in rhs_list:
+                for symbol in rhs:
+                    if symbol not in P and not symbol.islower():
+                        return False
+        return True
+
+    def is_regular(self, P):
+
+        for lhs, rhs_list in P.items():
+            if not lhs.isupper():
+                return False
+            for rhs in rhs_list:
+                if len(rhs) == 1 and rhs.islower():
+                    continue
+                elif len(rhs) == 2 and rhs[0].islower() and rhs[1].isupper():
+                    continue
+                else:
+                    return False
+        return True
+```
 ## Conclusion
 In this laboratory work I learned and implemented converter from NFA to DFA or from FA to Regular Grammar. 
 I learned how to determine if an FA is deterministic or non-deterministic. I found out the steps to convert an NDFA to a DFA
