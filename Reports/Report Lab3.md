@@ -1,4 +1,4 @@
-# Topic: Determinism in Finite Automata. Conversion from NDFA 2 DFA. Chomsky Hierarchy.
+# Topic: Lexer & Scanner
 
 ### Course: Formal Languages & Finite Automata
 ### Author: Rotaru Ion 
