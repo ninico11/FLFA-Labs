@@ -11,7 +11,7 @@
     2. The implemented functionality needs executed and tested.
     3. A BONUS point will be given for the student who will have unit tests that validate the functionality of the project.
     4. Also, another BONUS point would be given if the student will make the aforementioned function to accept any grammar, not only the one from the student's variant.
-## ImplementationThis code repeatedly goes through a dictionary's self-contained grammatical rules.P and verifying that no productions in the grammar rules include even one non-terminal symbol. 
+## Implementation 
 This code is looking for any epsilon productions in the grammar, which are production rules that map a non-terminal symbol to an empty string.
 For each non-terminal symbol in the grammar, the code first retrieves all the production rules associated with that symbol using 'P[symbol]', which returns a set of strings representing all the possible productions for that non-terminal.
 Next, it loops through each of the productions for that non-terminal using 'for production in productions', and checks if the current production is an epsilon production by testing if 'production' is equal to the string 'ε'.
