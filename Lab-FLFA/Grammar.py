@@ -151,13 +151,11 @@ class Grammar:
                         self.P[intermediate_symbol].add(production[i])
                         self.P[new_symbol].add(intermediate_symbol)
                         self.V_N.add(intermediate_symbol)
-                        reachable.add(intermediate_symbol)
                     self.P[new_symbol].add(production[-1])
                     self.P[symbol].remove(production)
                     self.P[symbol].add(new_symbol)
                     self.V_N.add(new_symbol)
-                    reachable.add(new_symbol)
-                    
+
         epsilon_productions = []
         for symbol in list(self.P):
             productions = list(self.P[symbol])
